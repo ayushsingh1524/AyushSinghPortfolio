@@ -19,28 +19,38 @@ export function ScrollyCanvas() {
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, FRAME_COUNT - 1]);
 
   useEffect(() => {
-    const loadedImages: HTMLImageElement[] = [];
-    let loadedCount = 0;
-
-    for (let i = 0; i < FRAME_COUNT; i++) {
-      const img = new Image();
-      const frameNum = i.toString().padStart(2, "0");
-      img.src = `/sequence/frame_${frameNum}_delay-0.055s.png`;
+    // 1. Load the first frame immediately so the user sees something instantly
+    const firstImg = new window.Image();
+    firstImg.src = "/sequence/frame_00_delay-0.055s.webp";
+    
+    firstImg.onload = () => {
+      setImages([firstImg]);
+      drawFrame(firstImg);
       
-      img.onload = () => {
-        loadedCount++;
-        if (loadedCount === FRAME_COUNT) {
-          setImages(loadedImages);
-          // Pre-draw the first frame once everything is loaded
-          drawFrame(loadedImages[0]);
-        }
-      };
-      loadedImages.push(img);
-    }
+      // 2. Once the first frame is loaded, kick off loading the rest in the background
+      const loadedImages: HTMLImageElement[] = [firstImg];
+      let loadedCount = 1;
+      
+      for (let i = 1; i < FRAME_COUNT; i++) {
+        const img = new window.Image();
+        const frameNum = i.toString().padStart(2, "0");
+        img.src = `/sequence/frame_${frameNum}_delay-0.055s.webp`;
+        
+        img.onload = () => {
+          loadedImages[i] = img;
+          loadedCount++;
+          // Update the full array once all frames are loaded
+          if (loadedCount === FRAME_COUNT) {
+            setImages([...loadedImages]);
+          }
+        };
+      }
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const drawFrame = (image: HTMLImageElement) => {
+  const drawFrame = (image: HTMLImageElement | undefined) => {
+    if (!image) return;
     const canvas = canvasRef.current;
     if (!canvas || !image) return;
 
