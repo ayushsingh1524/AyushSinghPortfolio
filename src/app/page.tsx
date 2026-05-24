@@ -4,7 +4,6 @@ import { RealmBridge } from "@/components/RealmBridge";
 import { UnchartedStorm } from "@/components/UnchartedStorm";
 import { TechStack } from "@/components/TechStack";
 import { Footer } from "@/components/Footer";
-import { NavRing } from "@/components/NavRing";
 import { Preloader } from "@/components/Preloader";
 import type { Metadata } from "next";
 

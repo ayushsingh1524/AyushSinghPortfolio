@@ -60,13 +60,13 @@ export function Notebook() {
       rotateY: 0,
       opacity: 1,
       z: 0,
-      transition: { duration: 0.8, ease: [0.64, 0.04, 0.35, 1] }
+      transition: { duration: 0.8, ease: [0.64, 0.04, 0.35, 1] as const }
     },
     exit: (direction: number) => ({
       rotateY: direction < 0 ? 90 : -90,
       opacity: 0,
       z: -100,
-      transition: { duration: 0.8, ease: [0.64, 0.04, 0.35, 1] }
+      transition: { duration: 0.8, ease: [0.64, 0.04, 0.35, 1] as const }
     })
   };
 
