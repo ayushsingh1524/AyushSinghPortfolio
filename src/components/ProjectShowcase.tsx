@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 
 const PROJECTS = [
   {
@@ -10,7 +10,7 @@ const PROJECTS = [
     category: "FULL-STACK TASK MANAGEMENT",
     description: "Production-grade Kanban app. Next.js frontend, FastAPI backend. Real-time updates, JWT auth, normalized PostgreSQL, Redis caching, Docker containerized.",
     image: "/projects/tasknest.png",
-    bgColor: "#ff6a00" // Vibrant Orange matching the beige/orange theme
+    bgColor: "#ff6a00"
   },
   {
     title: "ML INFERENCE PLATFORM",
@@ -18,7 +18,7 @@ const PROJECTS = [
     category: "FILE #892 - K8S/AWS",
     description: "Containerized model serving platform. K8s autoscaling. Sub-200ms latency. 100+ concurrent requests. Prometheus integration.",
     image: "/projects/ml_inference_platform_1780908107415.png",
-    bgColor: "#0047ff" // Vibrant Electric Blue
+    bgColor: "#0047ff"
   },
   {
     title: "CONCURRENT EXEC ENGINE",
@@ -26,7 +26,7 @@ const PROJECTS = [
     category: "FILE #441 - C++/LINUX",
     description: "Sandboxed Docker code execution. Linux cgroups isolation. Zero crash rate across 30+ requests. Race conditions resolved.",
     image: "/projects/concurrent_exec_engine_1780908121308.png",
-    bgColor: "#ff3b00" // Neon Orange-Red
+    bgColor: "#ff3b00"
   },
   {
     title: "PACKET ANALYZER",
@@ -34,7 +34,7 @@ const PROJECTS = [
     category: "FILE #105 - NET/SEC",
     description: "Real-time capture via POSIX/libpcap. Threat monitoring. MITRE ATT&CK mapping. Live CLI dashboard.",
     image: "/projects/packet_analyzer_1780908132723.png",
-    bgColor: "#00c94a" // Vibrant Emerald Green
+    bgColor: "#00c94a"
   },
   {
     title: "CLOUD THREAT DETECTION",
@@ -42,7 +42,7 @@ const PROJECTS = [
     category: "FILE #774 - PYTHON/TF",
     description: "Scalable detection pipeline. AWS CloudTrail via Snowflake. Detections-as-code. CI/CD automated via GitHub Actions.",
     image: "/projects/cloud_threat_detection_1780908146526.png",
-    bgColor: "#9000ff" // Bright Neon Purple
+    bgColor: "#9000ff"
   }
 ];
 
@@ -121,7 +121,7 @@ export function ProjectShowcase({ canScroll, onComplete }: { canScroll: boolean,
 
   const activeProject = PROJECTS[activeIdx];
 
-  const variants = {
+  const variants: Variants = {
     enter: (dir: number) => ({
       x: dir > 0 ? 500 : -500,
       y: dir > 0 ? 300 : -300,
