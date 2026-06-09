@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 
 import { CircularNav } from "@/components/CircularNav";
 import { Preloader } from "@/components/Preloader";
+import { FloatingResumeButton } from "@/components/FloatingResumeButton";
 
 export default function RootLayout({
   children,
@@ -56,6 +57,8 @@ export default function RootLayout({
         <div className="fixed bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-[9999] flex justify-center pb-4">
           <CircularNav />
         </div>
+        
+        <FloatingResumeButton />
       </body>
     </html>
   );

@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { type Project } from "@/data/projects";
 import { useRef } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Globe } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 export function ProjectDetailClient({ project }: { project: Project }) {
@@ -190,7 +190,22 @@ export function ProjectDetailClient({ project }: { project: Project }) {
               </motion.h2>
             </div>
             <div className="w-full md:w-3/4 flex flex-wrap gap-6">
-              {project.githubUrl && (
+              {project.liveUrl ? (
+                <motion.a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="flex items-center gap-3 bg-[#c25e30] text-[#fffdfa] px-8 py-4 rounded-full font-bold tracking-widest text-sm uppercase hover:bg-[#4a3b32] transition-colors duration-500 group"
+                >
+                  <Globe size={20} />
+                  <span>Live Demo</span>
+                  <ExternalLink size={14} className="opacity-50 group-hover:opacity-100 transition-opacity" />
+                </motion.a>
+              ) : project.githubUrl ? (
                 <motion.a
                   href={project.githubUrl}
                   target="_blank"
@@ -205,23 +220,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
                   <span>View on GitHub</span>
                   <ExternalLink size={14} className="opacity-50 group-hover:opacity-100 transition-opacity" />
                 </motion.a>
-              )}
-              {project.liveUrl && (
-                <motion.a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  className="flex items-center gap-3 bg-[#c25e30] text-[#fffdfa] px-8 py-4 rounded-full font-bold tracking-widest text-sm uppercase hover:bg-[#4a3b32] transition-colors duration-500 group"
-                >
-                  <ExternalLink size={20} />
-                  <span>Live Demo</span>
-                  <ExternalLink size={14} className="opacity-50 group-hover:opacity-100 transition-opacity" />
-                </motion.a>
-              )}
+              ) : null}
             </div>
           </div>
         )}
