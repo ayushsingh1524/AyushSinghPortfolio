@@ -16,6 +16,19 @@ export function CircularNav() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [rotation, setRotation] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Check scroll position to adapt colors over light backgrounds
+  useEffect(() => {
+    const handleScroll = () => {
+      // If we scroll past 80% of the viewport, assume we've passed the dark hero
+      setIsScrolled(window.scrollY > window.innerHeight * 0.8);
+    };
+    window.addEventListener("scroll", handleScroll);
+    // Initial check
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Check preloader finish on mount and listen to events
   useEffect(() => {
@@ -53,7 +66,8 @@ export function CircularNav() {
     ...NAV_ITEMS.slice(0, safeActiveIndex)
   ];
 
-  const isLightMode = pathname === "/about";
+  const isWorksDetail = pathname !== "/works" && pathname?.startsWith("/works/");
+  const isLightMode = pathname === "/about" || (isWorksDetail && isScrolled);
 
   // Dynamic colors
   const centerDotColor = isLightMode ? "#c25e30" : "#ffffff";
