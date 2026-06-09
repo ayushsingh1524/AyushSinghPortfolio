@@ -1,10 +1,14 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
+export let preloaderFinished = false;
+
 export function Preloader() {
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const text1Ref = useRef<HTMLSpanElement>(null);
@@ -14,12 +18,20 @@ export function Preloader() {
   const dotRef = useRef<HTMLSpanElement>(null);
   const circleWrapperRef = useRef<HTMLDivElement>(null);
 
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(preloaderFinished);
 
   useGSAP(
     () => {
+      if (preloaderFinished) return;
+
+      // Force route to home on hard refresh so the intro animation plays on the Hero page
+      if (window.location.pathname !== "/") {
+        router.push("/");
+      }
+
       const tl = gsap.timeline({
         onComplete: () => {
+          preloaderFinished = true;
           window.dispatchEvent(new CustomEvent("preloader-complete"));
           setIsComplete(true);
         },
@@ -154,6 +166,7 @@ export function Preloader() {
 
   return (
     <div
+      id="portfolio-preloader"
       ref={containerRef}
       className="fixed inset-0 z-[9999] pointer-events-none"
     >

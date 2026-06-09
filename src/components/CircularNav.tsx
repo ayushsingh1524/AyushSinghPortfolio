@@ -1,100 +1,134 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import { preloaderFinished } from "@/components/Preloader";
 
 const NAV_ITEMS = [
-  { label: "PROJECTS", target: "projects" },
-  { label: "EXPERIENCE", target: "experience" },
-  { label: "TECH", target: "tech-stack" },
-  { label: "CONTACT", target: "contact" },
+  { label: "HOME", target: "/" },
+  { label: "WORK", target: "/works" },
+  { label: "ABOUT", target: "/about" },
 ];
 
 export function CircularNav() {
-  const [active, setActive] = useState("projects");
+  const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(false);
+  const [rotation, setRotation] = useState(0);
 
+  // Check preloader finish on mount and listen to events
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
+    const isPreloaderGone = !document.getElementById("portfolio-preloader");
+    if (preloaderFinished || isPreloaderGone) {
+      setIsVisible(true);
+    }
 
-    NAV_ITEMS.forEach((item) => {
-      const el = document.getElementById(item.target);
-      if (el) observer.observe(el);
-    });
+    const handlePreloaderComplete = () => {
+      setIsVisible(true);
+    };
 
-    return () => observer.disconnect();
+    window.addEventListener("preloader-complete", handlePreloaderComplete);
+    return () => window.removeEventListener("preloader-complete", handlePreloaderComplete);
   }, []);
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+  // Trigger 360 spin when pathname changes
+  useEffect(() => {
+    // Only spin if we're actually visible/mounted fully
+    if (isVisible) {
+      setRotation(prev => prev + 360);
+    }
+  }, [pathname, isVisible]);
+
+  // Determine active item index
+  const activeIndex = NAV_ITEMS.findIndex(
+    item => pathname === item.target || (item.target !== "/" && pathname?.startsWith(item.target))
+  );
+  const safeActiveIndex = activeIndex >= 0 ? activeIndex : 0;
+
+  // Rearrange items so the active item is always first
+  // Rearrange items so the active item is always first
+  const rearrangedItems = [
+    ...NAV_ITEMS.slice(safeActiveIndex),
+    ...NAV_ITEMS.slice(0, safeActiveIndex)
+  ];
+
+  const isLightMode = pathname === "/about";
+
+  // Dynamic colors
+  const centerDotColor = isLightMode ? "#c25e30" : "#ffffff";
+  const innerRingColor = isLightMode ? "rgba(74,59,50,0.5)" : "rgba(255,255,255,0.5)";
+  const outerRingColor = isLightMode ? "rgba(74,59,50,0.6)" : "rgba(255,255,255,0.6)";
+  const activeTextColor = isLightMode ? "#4a3b32" : "#ffffff";
+  const inactiveTextColor = isLightMode ? "rgba(74,59,50,0.4)" : "rgba(255,255,255,0.4)";
+  const activeTextShadow = isLightMode ? "none" : "0 0 10px rgba(255,255,255,0.5)";
+  const separatorColor = isLightMode ? "rgba(74,59,50,0.3)" : "rgba(255,255,255,0.3)";
 
   return (
-    <div className="relative mt-12 w-[220px] h-[110px] pointer-events-auto overflow-visible select-none">
-      {/* 
-        Semi-circle SVG 
-        viewBox is set up so 0,0 to 220,110 covers the top half of a circle.
-        Center is at 110, 110.
-      */}
-      <svg viewBox="0 0 220 110" className="w-full h-full overflow-visible drop-shadow-2xl">
-        
-        {/* The guide circle outline */}
-        <circle 
-          cx="110" cy="110" r="90" 
-          fill="none" 
-          stroke="rgba(255,255,255,0.15)" 
-          strokeWidth="1" 
-        />
-
-        {/* 
-          The text path. 
-          A 95 95 = radius 95 (slightly outside the line so it sits cleanly)
-          Start at X=15, Y=110 -> End at X=205, Y=110
-        */}
+    <div 
+      className="relative mt-12 w-[180px] h-[90px] pointer-events-auto overflow-visible select-none md:w-[220px] md:h-[110px] transition-opacity duration-1000 delay-300"
+      style={{ opacity: isVisible ? 1 : 0 }}
+    >
+      <svg viewBox="0 0 220 110" className={`w-full h-full overflow-visible ${isLightMode ? '' : 'drop-shadow-2xl'}`}>
         <path 
           id="nav-text-path" 
-          d="M 15 110 A 95 95 0 0 1 205 110" 
+          d="M 28 110 A 82 82 0 0 1 192 110 A 82 82 0 0 1 28 110" 
           fill="none" 
           stroke="none"
         />
+        
+        <circle cx="110" cy="110" r="6" fill={centerDotColor} className="transition-colors duration-1000" />
+        <circle cx="110" cy="110" r="14" fill="none" stroke={innerRingColor} strokeWidth="2" className="transition-colors duration-1000" />
 
-        {/* Center alignment dot */}
-        <circle cx="110" cy="110" r="3" fill="#fcf7e1" />
-        {/* Center decorative ring */}
-        <circle cx="110" cy="110" r="8" fill="none" stroke="rgba(252,247,225,0.3)" strokeWidth="1" />
+        <motion.g
+          animate={{ rotate: rotation }}
+          transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+          style={{ transformOrigin: "center center" }}
+        >
+          {/* Invisible circle to perfectly center the group's bounding box at 110,110 */}
+          <circle cx="110" cy="110" r="110" fill="transparent" />
 
-        <text className="text-[9.5px] font-sans font-extrabold tracking-[0.15em] uppercase fill-[#8b949e]">
-          <textPath href="#nav-text-path" startOffset="50%" textAnchor="middle">
-            {NAV_ITEMS.map((item, index) => (
-              <tspan key={item.target}>
-                {/* SVG <a> tag allows standard web linking/clicking inside SVG text */}
-                <a 
-                  href={`#${item.target}`}
-                  onClick={(e) => { e.preventDefault(); scrollTo(item.target); }}
-                  className="cursor-pointer transition-colors duration-300 hover:fill-[#dc2626]"
-                  style={{ 
-                    fill: active === item.target ? "#fcf7e1" : "inherit",
-                    textShadow: active === item.target ? "0 0 8px rgba(252,247,225,0.4)" : "none"
-                  }}
-                >
-                  {item.label}
-                </a>
-                {index < NAV_ITEMS.length - 1 && (
-                  <tspan fill="rgba(255,255,255,0.15)">  •  </tspan>
-                )}
-              </tspan>
-            ))}
-          </textPath>
-        </text>
-
+          {/* The visible line completing the circle, with a gap at the top for the words */}
+          <circle 
+            cx="110" cy="110" r="82" 
+            fill="none" 
+            stroke={outerRingColor} 
+            strokeWidth="3" 
+            transform="rotate(-90 110 110)"
+            strokeDasharray="0 105 305 105" 
+            className="transition-colors duration-1000"
+          />
+          
+          <text 
+            className="text-[12px] font-sans font-extrabold tracking-[0.2em] uppercase transition-colors duration-1000"
+            alignmentBaseline="middle"
+            dominantBaseline="middle"
+          >
+            <textPath href="#nav-text-path" startOffset="25%" textAnchor="middle">
+              {rearrangedItems.map((item, index) => {
+                const isActive = index === 0;
+                
+                return (
+                  <tspan key={item.target}>
+                    <Link 
+                      href={item.target}
+                      className="cursor-pointer transition-colors duration-300 hover:opacity-70"
+                      style={{ 
+                        fill: isActive ? activeTextColor : inactiveTextColor,
+                        textShadow: isActive ? activeTextShadow : "none"
+                      }}
+                    >
+                      {item.label}
+                    </Link>
+                    {index < rearrangedItems.length - 1 && (
+                      <tspan fill={separatorColor} className="transition-colors duration-1000">  •  </tspan>
+                    )}
+                  </tspan>
+                );
+              })}
+            </textPath>
+          </text>
+        </motion.g>
       </svg>
     </div>
   );
