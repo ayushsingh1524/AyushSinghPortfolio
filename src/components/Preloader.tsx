@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import SplitType from "split-type";
 
 export let preloaderFinished = false;
 
@@ -24,10 +25,15 @@ export function Preloader() {
     () => {
       if (preloaderFinished) return;
 
-      // Force route to home on hard refresh so the intro animation plays on the Hero page
       if (window.location.pathname !== "/") {
         router.push("/");
       }
+
+      if (!text1Ref.current || !text2Ref.current || !text3Ref.current) return;
+
+      const split1 = new SplitType(text1Ref.current, { types: 'chars' });
+      const split2 = new SplitType(text2Ref.current, { types: 'chars' });
+      const split3 = new SplitType(text3Ref.current, { types: 'words,chars' });
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -38,20 +44,18 @@ export function Preloader() {
       });
 
       // Initial states
-      gsap.set([text1Ref.current, text2Ref.current, text3Ref.current], {
-        yPercent: 100,
-        autoAlpha: 0,
-      });
+      gsap.set([split1.chars, split2.chars], { yPercent: 100, autoAlpha: 0 });
+      gsap.set(split3.chars, { yPercent: 100, autoAlpha: 0 });
       gsap.set(circleRef.current, { strokeDashoffset: 289 });
       gsap.set(dotRef.current, { scale: 0, autoAlpha: 0 });
 
       // ─── Phase 1: Reveal name + circle loader ───
-      tl.to([text1Ref.current, text2Ref.current], {
+      tl.to([split1.chars, split2.chars], {
         yPercent: 0,
         autoAlpha: 1,
         duration: 1.2,
         ease: "power3.out",
-        stagger: 0.1,
+        stagger: 0.05,
       })
         .to(
           dotRef.current,
@@ -61,7 +65,7 @@ export function Preloader() {
             duration: 0.8,
             ease: "back.out(1.7)",
           },
-          "-=0.6"
+          "-=1.0"
         )
         .to(
           circleRef.current,
@@ -70,37 +74,35 @@ export function Preloader() {
             duration: 2,
             ease: "power2.inOut",
           },
-          "-=0.4"
+          "-=0.8"
         )
         .to(
-          text3Ref.current,
+          split3.chars,
           {
             yPercent: 0,
             autoAlpha: 1,
-            duration: 1,
+            duration: 0.8,
             ease: "power3.out",
+            stagger: 0.02,
           },
           "-=1.5"
         )
 
         // ─── Phase 2: Fade text out, keep circle ───
         .to(
-          [text1Ref.current, text2Ref.current, text3Ref.current],
+          [split1.chars, split2.chars, split3.chars],
           {
             yPercent: -50,
             autoAlpha: 0,
             duration: 0.8,
             ease: "power3.inOut",
-            stagger: 0.05,
+            stagger: 0.01,
           },
           "+=0.4"
         )
 
         // ─── Phase 3: BG fades + circle drops — simultaneous ───
-        // Add a label so both tweens fire at the same time
         .addLabel("drop")
-
-        // Background fades to reveal the hero underneath
         .to(
           bgRef.current,
           {
@@ -110,8 +112,6 @@ export function Preloader() {
           },
           "drop"
         )
-
-        // Circle drops continuously to the CircularNav position at bottom-center
         .to(
           circleWrapperRef.current,
           {
@@ -120,7 +120,6 @@ export function Preloader() {
               if (!el) return window.innerHeight / 2;
               const rect = el.getBoundingClientRect();
               const currentCenterY = rect.top + rect.height / 2;
-              // Target: bottom of viewport where CircularNav center dot sits
               const targetY = window.innerHeight - 8;
               return targetY - currentCenterY;
             },
@@ -130,8 +129,6 @@ export function Preloader() {
           },
           "drop"
         )
-
-        // Add a subtle glow pulse as the circle drops
         .to(
           dotRef.current,
           {
@@ -170,15 +167,12 @@ export function Preloader() {
       ref={containerRef}
       className="fixed inset-0 z-[9999] pointer-events-none"
     >
-      {/* Layer 1: Solid background — fades to reveal hero */}
       <div ref={bgRef} className="absolute inset-0 bg-[#0c0c0c]" />
 
-      {/* Layer 2: Content (text + circle) */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-6 md:gap-10">
-          {/* Name row — text clips individually, circle is free */}
           <div className="flex items-center gap-4 md:gap-6">
-            <div className="overflow-hidden">
+            <div className="overflow-hidden" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}>
               <span
                 ref={text1Ref}
                 className="block text-white text-2xl md:text-4xl font-light tracking-[0.1em] font-sans uppercase"
@@ -187,7 +181,6 @@ export function Preloader() {
               </span>
             </div>
 
-            {/* Circle — positioned between the name, drops to bottom */}
             <div
               ref={circleWrapperRef}
               className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center will-change-transform"
@@ -216,7 +209,7 @@ export function Preloader() {
               </svg>
             </div>
 
-            <div className="overflow-hidden">
+            <div className="overflow-hidden" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}>
               <span
                 ref={text2Ref}
                 className="block text-white text-2xl md:text-4xl font-light tracking-[0.1em] font-sans uppercase"
@@ -226,13 +219,12 @@ export function Preloader() {
             </div>
           </div>
 
-          {/* Subtitle */}
-          <div className="overflow-hidden">
+          <div className="overflow-hidden" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}>
             <span
               ref={text3Ref}
               className="block text-white/40 text-xs md:text-sm font-light tracking-[0.2em] uppercase font-sans"
             >
-              Software &amp; Systems Engineer
+              Software &amp; Data Engineer
             </span>
           </div>
         </div>

@@ -15,7 +15,7 @@ export function ProjectDetailClient({ project }: { project: Project }) {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const scrollScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
     <div ref={containerRef} className="w-full">
@@ -26,7 +26,10 @@ export function ProjectDetailClient({ project }: { project: Project }) {
         style={{ backgroundColor: project.bgColor }}
       >
         <motion.div 
-          style={{ y, opacity, scale }}
+          initial={{ clipPath: "inset(20% 15% 20% 15% round 20px)", filter: "blur(10px)", scale: 1.1 }}
+          animate={{ clipPath: "inset(0% 0% 0% 0% round 0px)", filter: "blur(0px)", scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1] }}
+          style={{ y, opacity, scale: scrollScale }}
           className="absolute inset-0"
         >
           {/* Full-cover banner image */}

@@ -65,12 +65,12 @@ export default function AboutPage() {
             AYUSH
           </h1>
           <span className="font-medium tracking-widest text-xs md:text-sm uppercase hidden md:block">
-            Software & System Designer
+            Software & Data Engineer
           </span>
         </Link>
         <div className="flex items-center gap-6 text-xs md:text-sm font-bold tracking-widest uppercase">
           <span className="hidden md:block">Available for hire</span>
-          <a href="mailto:hello@example.com" className="flex items-center gap-2 hover:opacity-70 transition-opacity">
+          <a href="mailto:singhayush9179@gmail.com" className="flex items-center gap-2 hover:opacity-70 transition-opacity">
             <span className="w-2 h-2 rounded-full bg-[#c25e30] animate-pulse" />
             Get in touch
           </a>
@@ -87,12 +87,12 @@ export default function AboutPage() {
               transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
               className="w-full flex flex-col items-center justify-center leading-[0.8] text-center"
             >
-              <h2 className="text-[15vw] font-black uppercase tracking-tighter text-[#c25e30]">
+              <h2 className="text-[clamp(4rem,15vw,12rem)] font-black uppercase tracking-tighter text-[#c25e30]">
                 SOFTWARE
               </h2>
               <div className="flex items-center justify-center gap-4 md:gap-8 w-full">
-                <h2 className="text-[15vw] font-black uppercase tracking-tighter text-[#c25e30]">
-                  DESIGNER
+                <h2 className="text-[clamp(4rem,15vw,12rem)] font-black uppercase tracking-tighter text-[#c25e30]">
+                  ENGINEER
                 </h2>
                 {/* Decorative Dot matching the reference image */}
                 <motion.div
@@ -162,21 +162,50 @@ export default function AboutPage() {
             </motion.div>
           </div>
 
-          {/* ── SECTION 2: TECHNIQUES ── */}
+          {/* ── SECTION 2: CAPABILITIES ── */}
           <div className="w-full flex flex-col md:flex-row gap-12 md:gap-24">
             <div className="w-full md:w-1/4">
               <h3 className="text-xl md:text-2xl font-black uppercase tracking-widest text-[#a68a7a]">
-                TECHNIQUES
+                CAPABILITIES
               </h3>
             </div>
-            <div className="w-full md:w-3/4">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-0">
-                {['Python', 'C++', 'JavaScript', 'SQL', 'AWS', 'Docker', 'Kubernetes', 'Terraform', 'React', 'Next.js', 'FastAPI', 'Tailwind CSS', 'Redux', 'PostgreSQL', 'Redis', 'CI/CD'].map((skill, i) => (
-                  <div key={i} className="py-5 border-b border-[#4a3b32]/20 text-[#4a3b32] text-sm md:text-base font-medium hover:text-[#c25e30] transition-colors cursor-default">
-                    {skill}
+            <div className="w-full md:w-3/4 flex flex-col border-t border-[#4a3b32]/20">
+              {[
+                { idx: '01', title: 'Backend Architecture', desc: 'Designing high-throughput, low-latency microservices with robust database schemas and caching layers.', tags: ['FastAPI', 'Spring Boot', 'PostgreSQL', 'Redis'] },
+                { idx: '02', title: 'Frontend Engineering', desc: 'Building performant, highly animated, and deeply interactive client-side applications that feel premium.', tags: ['React', 'Next.js', 'Framer Motion', 'Tailwind CSS'] },
+                { idx: '03', title: 'Cloud & DevOps', desc: 'Containerizing workloads and orchestrating deployments for scale, resilience, and zero downtime.', tags: ['Docker', 'Kubernetes', 'AWS', 'CI/CD'] },
+                { idx: '04', title: 'Data Pipelines', desc: 'Ingesting, transforming, and serving large-scale data reliably for machine learning and BI workloads.', tags: ['Python', 'Snowflake', 'Spark', 'Airflow'] },
+                { idx: '05', title: 'Security & Networking', desc: 'Building intrusion detection systems, threat pipelines, and MITRE ATT&CK-mapped detection rules at scale.', tags: ['C++', 'libpcap', 'Snowflake', 'Terraform'] },
+              ].map((cap, i) => (
+                <motion.div
+                  key={cap.idx}
+                  initial={{ opacity: 0, x: -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ delay: i * 0.1, duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+                  className="py-8 md:py-10 border-b border-[#4a3b32]/20 group cursor-default"
+                >
+                  <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                    {/* Index number */}
+                    <span className="text-[#c25e30] text-sm font-bold tracking-widest shrink-0 mt-1">{cap.idx}</span>
+
+                    {/* Title */}
+                    <h4 className="text-2xl md:text-4xl font-black text-[#4a3b32] uppercase tracking-tight flex-1 group-hover:text-[#c25e30] transition-colors duration-500">
+                      {cap.title}
+                    </h4>
+
+                    {/* Description + Tags */}
+                    <div className="md:max-w-sm flex flex-col gap-4">
+                      <p className="text-[#7a6b62] text-sm leading-relaxed">{cap.desc}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {cap.tags.map(t => (
+                          <span key={t} className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 bg-[#f5efe6] rounded-full text-[#4a3b32] group-hover:bg-[#c25e30]/10 group-hover:text-[#c25e30] transition-colors duration-300">{t}</span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                ))}
-              </div>
+                </motion.div>
+              ))}
             </div>
           </div>
 
@@ -184,33 +213,37 @@ export default function AboutPage() {
           <div className="w-full flex flex-col md:flex-row gap-12 md:gap-24">
             <div className="w-full md:w-1/4">
               <h3 className="text-xl md:text-2xl font-black uppercase tracking-widest text-[#a68a7a]">
-                AWARDS
+                CERTIFICATIONS
               </h3>
             </div>
             <div className="w-full md:w-3/4 flex flex-col border-t border-[#4a3b32]/20">
               {[
-                { year: '2024', name: 'AWS Certified', desc: 'Solutions Architect Professional' },
+                { year: '2026', name: 'AI Upskilling', desc: 'Qualcomm Certificate', link: 'https://drive.google.com/file/d/1-Ma8vM7-BCN0YaIgrjMTj8z_h9m-kOt6/view?usp=sharing' },
+                { year: '2025', name: 'OCI Gen AI Pro', desc: 'Oracle Certified Professional', link: 'https://drive.google.com/file/d/1xN2aDOBPup4hOGfb5IJzHY5r9C5rfS_u/view?usp=sharing' },
+                { year: '2025', name: 'OCI AI Foundations', desc: 'Oracle Certified Associate', link: 'https://drive.google.com/file/d/1vt5LKKsPeEFvOOrmbXLg7Nr7CU2sEnVw/view?usp=sharing' },
                 { year: '2023', name: 'Hackathon Winner', desc: 'Best Backend Architecture' },
-                { year: '2022', name: 'Open Source', desc: 'Top Contributor Award' },
-                { year: '2021', name: 'Design Excellence', desc: 'UI/UX Portfolio Recognition' }
+                { year: '2022', name: 'Open Source', desc: 'Top Contributor Award' }
               ].map((award, i) => (
-                <motion.div
+                <motion.a
+                  href={award.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   key={i}
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-10%" }}
                   transition={{ delay: i * 0.15, duration: 0.6, ease: "easeOut" }}
-                  className="py-8 border-b border-[#4a3b32]/20 flex flex-col md:flex-row md:items-center justify-between group cursor-default"
+                  className="py-8 border-b border-[#4a3b32]/20 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer"
                 >
                   <div className="flex items-center gap-4 text-3xl md:text-5xl text-[#4a3b32]">
                     <span className="font-light">{award.year}</span>
                     <span className="text-[#c25e30] opacity-50 group-hover:opacity-100 transition-opacity">•</span>
-                    <span className="font-medium tracking-tight">{award.name}</span>
+                    <span className="font-medium tracking-tight truncate">{award.name}</span>
                   </div>
                   <div className="mt-4 md:mt-0 text-xs md:text-sm text-[#7a6b62] uppercase tracking-widest md:text-right group-hover:text-[#c25e30] transition-colors">
                     {award.desc}
                   </div>
-                </motion.div>
+                </motion.a>
               ))}
             </div>
           </div>
@@ -226,7 +259,7 @@ export default function AboutPage() {
 
             {/* ROW 1: LET'S [IMG] WORK */}
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 w-full">
-              <h2 className="text-[15vw] md:text-[12vw] font-black uppercase tracking-tighter text-[#4a3b32] leading-none">
+              <h2 className="text-[clamp(4rem,12vw,10rem)] font-black uppercase tracking-tighter text-[#4a3b32] leading-none">
                 LET'S
               </h2>
 
@@ -245,7 +278,7 @@ export default function AboutPage() {
                 />
               </motion.div>
 
-              <h2 className="text-[15vw] md:text-[12vw] font-black uppercase tracking-tighter text-[#4a3b32] leading-none">
+              <h2 className="text-[clamp(4rem,12vw,10rem)] font-black uppercase tracking-tighter text-[#4a3b32] leading-none">
                 WORK
               </h2>
             </div>
@@ -257,20 +290,20 @@ export default function AboutPage() {
               </p>
 
               <div className="flex flex-col md:flex-row items-center justify-center gap-10 mt-8 w-full">
-                <motion.a 
-                  href="mailto:singhayush9179@gmail.com" 
+                <motion.a
+                  href="mailto:singhayush9179@gmail.com"
                   className="relative group flex items-center justify-center font-bold tracking-[0.2em] uppercase text-xs md:text-sm text-[#4a3b32] py-2"
                   whileHover="hover"
                 >
-                  <motion.span 
+                  <motion.span
                     className="text-[#4a3b32]/30 group-hover:text-[#c25e30] transition-colors duration-300"
                     variants={{ hover: { x: -8 } }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     [
                   </motion.span>
-                  
-                  <motion.span 
+
+                  <motion.span
                     className="mx-2 group-hover:text-[#c25e30] transition-colors duration-300"
                     variants={{ hover: { scale: 1.05 } }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -278,38 +311,38 @@ export default function AboutPage() {
                     singhayush9179@gmail.com
                   </motion.span>
 
-                  <motion.span 
+                  <motion.span
                     className="text-[#4a3b32]/30 group-hover:text-[#c25e30] transition-colors duration-300"
                     variants={{ hover: { x: 8 } }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     ]
                   </motion.span>
-                  
-                  <motion.div 
+
+                  <motion.div
                     className="absolute bottom-0 left-0 h-[1px] bg-[#c25e30] w-full origin-left"
                     initial={{ scaleX: 0 }}
                     variants={{ hover: { scaleX: 1 } }}
                     transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
                   />
                 </motion.a>
-                
-                <motion.a 
-                  href="https://linkedin.com/in/ayush1015" 
+
+                <motion.a
+                  href="https://linkedin.com/in/ayush1015"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative group flex items-center justify-center font-bold tracking-[0.2em] uppercase text-xs md:text-sm text-[#4a3b32] py-2"
                   whileHover="hover"
                 >
-                  <motion.span 
+                  <motion.span
                     className="text-[#4a3b32]/30 group-hover:text-[#c25e30] transition-colors duration-300"
                     variants={{ hover: { x: -8 } }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     [
                   </motion.span>
-                  
-                  <motion.span 
+
+                  <motion.span
                     className="mx-2 group-hover:text-[#c25e30] transition-colors duration-300"
                     variants={{ hover: { scale: 1.05 } }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -317,7 +350,7 @@ export default function AboutPage() {
                     LINKEDIN
                   </motion.span>
 
-                  <motion.span 
+                  <motion.span
                     className="text-[#4a3b32]/30 group-hover:text-[#c25e30] transition-colors duration-300"
                     variants={{ hover: { x: 8 } }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -325,7 +358,83 @@ export default function AboutPage() {
                     ]
                   </motion.span>
 
-                  <motion.div 
+                  <motion.div
+                    className="absolute bottom-0 left-0 h-[1px] bg-[#c25e30] w-full origin-left"
+                    initial={{ scaleX: 0 }}
+                    variants={{ hover: { scaleX: 1 } }}
+                    transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                  />
+                </motion.a>
+
+                <motion.a
+                  href="tel:+919453620790"
+                  className="relative group flex items-center justify-center font-bold tracking-[0.2em] uppercase text-xs md:text-sm text-[#4a3b32] py-2"
+                  whileHover="hover"
+                >
+                  <motion.span
+                    className="text-[#4a3b32]/30 group-hover:text-[#c25e30] transition-colors duration-300"
+                    variants={{ hover: { x: -8 } }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    [
+                  </motion.span>
+
+                  <motion.span
+                    className="mx-2 group-hover:text-[#c25e30] transition-colors duration-300"
+                    variants={{ hover: { scale: 1.05 } }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    +91 9453620790
+                  </motion.span>
+
+                  <motion.span
+                    className="text-[#4a3b32]/30 group-hover:text-[#c25e30] transition-colors duration-300"
+                    variants={{ hover: { x: 8 } }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    ]
+                  </motion.span>
+
+                  <motion.div
+                    className="absolute bottom-0 left-0 h-[1px] bg-[#c25e30] w-full origin-left"
+                    initial={{ scaleX: 0 }}
+                    variants={{ hover: { scaleX: 1 } }}
+                    transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
+                  />
+                </motion.a>
+
+                <motion.a
+                  href="https://github.com/ayushsingh1524"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative group flex items-center justify-center font-bold tracking-[0.2em] uppercase text-xs md:text-sm text-[#4a3b32] py-2"
+                  whileHover="hover"
+                >
+                  <motion.span
+                    className="text-[#4a3b32]/30 group-hover:text-[#c25e30] transition-colors duration-300"
+                    variants={{ hover: { x: -8 } }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    [
+                  </motion.span>
+
+                  <motion.span
+                    className="mx-2 group-hover:text-[#c25e30] transition-colors duration-300"
+                    variants={{ hover: { scale: 1.05 } }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    GITHUB
+                  </motion.span>
+
+                  <motion.span
+                    className="text-[#4a3b32]/30 group-hover:text-[#c25e30] transition-colors duration-300"
+                    variants={{ hover: { x: 8 } }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    ]
+                  </motion.span>
+
+                  <motion.div
                     className="absolute bottom-0 left-0 h-[1px] bg-[#c25e30] w-full origin-left"
                     initial={{ scaleX: 0 }}
                     variants={{ hover: { scaleX: 1 } }}
@@ -337,7 +446,7 @@ export default function AboutPage() {
 
             {/* ROW 2: TOGETHER */}
             <div className="mt-12 w-full flex justify-center">
-              <h2 className="text-[18vw] md:text-[15vw] font-black uppercase tracking-tighter text-[#4a3b32] leading-none">
+              <h2 className="text-[clamp(4rem,15vw,12rem)] font-black uppercase tracking-tighter text-[#4a3b32] leading-none">
                 TOGETHER
               </h2>
             </div>

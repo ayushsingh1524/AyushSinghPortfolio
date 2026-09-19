@@ -32,12 +32,14 @@ const bebasNeue = Bebas_Neue({
 
 export const metadata: Metadata = {
   title: "AyushSinghPortfolio",
-  description: "Portfolio of Ayush Singh - Software & System Designer",
+  description: "Portfolio of Ayush Singh - Software & Data Engineer",
 };
 
 import { CircularNav } from "@/components/CircularNav";
 import { Preloader } from "@/components/Preloader";
-import { FloatingResumeButton } from "@/components/FloatingResumeButton";
+import { LenisScroll } from "@/components/LenisScroll";
+import { CommandPalette } from "@/components/CommandPalette";
+import { GlobalThemeColor } from "@/components/GlobalThemeColor";
 
 export default function RootLayout({
   children,
@@ -49,16 +51,22 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${specialElite.variable} ${cinzel.variable} ${bebasNeue.variable} h-full antialiased`}
     >
+      <head>
+        <meta name="theme-color" content="#000000" />
+      </head>
       <body className="min-h-full flex flex-col relative">
-        <Preloader />
-        {children}
-        
-        {/* Global Persistent Navigation */}
-        <div className="fixed bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-[9999] flex justify-center pb-4">
-          <CircularNav />
-        </div>
-        
-        <FloatingResumeButton />
+        <GlobalThemeColor />
+        <LenisScroll>
+          <Preloader />
+          {children}
+          
+          {/* Global Persistent Navigation */}
+          <div className="fixed bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-[9999] flex justify-center pb-4">
+            <CircularNav />
+          </div>
+
+          <CommandPalette />
+        </LenisScroll>
       </body>
     </html>
   );

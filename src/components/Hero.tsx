@@ -73,14 +73,14 @@ export function Hero() {
           }}
         >
           {/* Top text layer */}
-          <div className="w-full max-w-[1150px] flex justify-start pl-4 md:pl-10 mt-[-10vh]">
-            <h1 className="text-[15vw] md:text-[200px] leading-none text-white tracking-tighter">
+          <div className="w-full max-w-[90vw] md:max-w-[1000px] flex justify-start pl-4 md:pl-8 mt-[-10vh]">
+            <h1 className="text-[18vw] md:text-[14vw] lg:text-[180px] leading-none text-white tracking-tighter">
               AYUSH
             </h1>
           </div>
           {/* Bottom text layer */}
-          <div className="w-full max-w-[1150px] flex justify-end pr-4 md:pr-10 mt-4 md:mt-[-50px]">
-            <h1 className="text-[15vw] md:text-[200px] leading-none text-white tracking-tighter">
+          <div className="w-full max-w-[90vw] md:max-w-[1000px] flex justify-end pr-4 md:pr-8 mt-4 md:mt-[-40px]">
+            <h1 className="text-[18vw] md:text-[14vw] lg:text-[180px] leading-none text-white tracking-tighter">
               SINGH
             </h1>
           </div>
@@ -103,7 +103,7 @@ export function Hero() {
         }}
       >
         <div className="relative w-full max-w-[1000px] h-[95vh] flex justify-center items-end bg-transparent">
-          <img src="/portrait.png" alt="Ayush Singh" className="w-auto h-full max-h-[95vh] object-contain object-bottom drop-shadow-2xl scale-[1.12] origin-bottom" />
+          <img src="/portrait.png" alt="Ayush Singh" className="w-auto h-full max-h-[70vh] md:max-h-[85vh] object-contain object-bottom drop-shadow-2xl origin-bottom" />
           
           {/* Bottom Fade Gradient to blend the hard edge seamlessly into the black background */}
           <div className="absolute bottom-0 left-0 w-full h-[20vh] bg-gradient-to-t from-black via-black/80 to-transparent" />
@@ -116,10 +116,10 @@ export function Hero() {
         {/* Left Subtitle Block */}
         <div className="absolute left-8 md:left-24 top-[58%] -translate-y-1/2 max-w-[300px] md:max-w-[500px]">
           <h2 className="text-white text-xl md:text-3xl leading-[1.1] font-bebas tracking-wide whitespace-nowrap">
-            SOFTWARE & SYSTEM DESIGNER
+            SOFTWARE & DATA ENGINEER
           </h2>
           <h3 className="text-white/60 text-lg md:text-2xl leading-[1.1] font-bebas tracking-wide mt-1 whitespace-nowrap">
-            AI/ML INFRASTRUCTURE
+            FULL-STACK · AI/ML · DATA PIPELINES
           </h3>
         </div>
 

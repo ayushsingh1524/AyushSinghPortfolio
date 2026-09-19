@@ -10,9 +10,21 @@ export function Details() {
   ];
 
   const certs = [
-    "OCI Generative AI Professional",
-    "AWS Cloud Practitioner Essentials",
-    "Google Cloud Generative AI Fundamentals"
+    {
+      name: "OCI 2025 Gen AI Professional",
+      year: "2025",
+      link: "/certs/oci-gen-ai-professional.pdf"
+    },
+    {
+      name: "OCI 2025 AI Foundations Associate",
+      year: "2025",
+      link: "/certs/oci-ai-foundations.pdf"
+    },
+    {
+      name: "AI Upskilling Certificate by Qualcomm",
+      year: "2026",
+      link: "/certs/qualcomm-ai-upskilling.pdf"
+    }
   ];
 
   return (
@@ -102,9 +114,14 @@ export function Details() {
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8">Certifications</h2>
             <ul className="space-y-4">
               {certs.map((cert, idx) => (
-                <li key={idx} className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <div className="w-2 h-2 rounded-full bg-indigo-500" />
-                  <span className="text-white/80 font-medium">{cert}</span>
+                <li key={idx}>
+                  <a href={cert.link} target="_blank" rel="noreferrer" className="flex items-center justify-between bg-white/5 border border-white/10 rounded-2xl p-4 hover:bg-white/10 transition-colors group">
+                    <div className="flex items-center gap-4">
+                      <div className="w-2 h-2 rounded-full bg-indigo-500 group-hover:bg-indigo-400 transition-colors" />
+                      <span className="text-white/80 font-medium group-hover:text-white transition-colors">{cert.name}</span>
+                    </div>
+                    <span className="text-white/40 text-sm font-medium tracking-wider">{cert.year}</span>
+                  </a>
                 </li>
               ))}
             </ul>
