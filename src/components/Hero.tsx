@@ -114,11 +114,11 @@ export function Hero() {
       <div className="absolute inset-0 z-20 pointer-events-none">
         
         {/* Left Subtitle Block */}
-        <div className="absolute left-8 md:left-24 top-[58%] -translate-y-1/2 max-w-[300px] md:max-w-[500px]">
-          <h2 className="text-white text-xl md:text-3xl leading-[1.1] font-bebas tracking-wide whitespace-nowrap">
+        <div className="absolute left-6 md:left-24 bottom-[15vh] md:bottom-auto md:top-[58%] md:-translate-y-1/2 max-w-[300px] md:max-w-[500px]">
+          <h2 className="text-white text-xl md:text-3xl leading-[1.1] font-bebas tracking-wide whitespace-nowrap drop-shadow-md">
             SOFTWARE & DATA ENGINEER
           </h2>
-          <h3 className="text-white/60 text-lg md:text-2xl leading-[1.1] font-bebas tracking-wide mt-1 whitespace-nowrap">
+          <h3 className="text-white/60 text-lg md:text-2xl leading-[1.1] font-bebas tracking-wide mt-1 whitespace-nowrap drop-shadow-md">
             FULL-STACK · AI/ML · DATA PIPELINES
           </h3>
         </div>
