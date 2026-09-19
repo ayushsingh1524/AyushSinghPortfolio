@@ -314,7 +314,7 @@ export function ProjectShowcase({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="absolute bottom-[10vh] right-[5vw] md:right-[8vw] max-w-[90vw] md:max-w-sm text-right z-20"
+              className="absolute bottom-8 left-4 right-4 md:bottom-[10vh] md:right-[8vw] md:left-auto max-w-none md:max-w-sm text-right z-20"
             >
               <div
                 className="inline-block bg-black/50 backdrop-blur-md border border-white/10 hover:border-cyan-400/30 p-4 md:p-6 rounded-xl transition-colors duration-500 cursor-pointer text-left md:text-right"
@@ -403,8 +403,8 @@ export function ProjectShowcase({
           })}
         </div>
 
-        {/* ── Mobile Bottom Category Nav ── */}
-        <div className="md:hidden absolute bottom-[16vh] left-1/2 -translate-x-1/2 flex items-center gap-6 pointer-events-auto">
+        {/* ── Mobile Category Nav ── */}
+        <div className="md:hidden absolute top-24 left-1/2 -translate-x-1/2 flex items-center gap-6 pointer-events-auto">
           {categories.map((cat, i) => {
             const isActive = activeCategory === cat;
             const idxStr = String(i + 1).padStart(2, "0");
@@ -487,7 +487,7 @@ export function ProjectShowcase({
         </AnimatePresence>
 
         {/* ── Mobile Project Progress Dots ── */}
-        <div className="absolute bottom-[24vh] left-1/2 -translate-x-1/2 flex md:hidden gap-2">
+        <div className="absolute bottom-[35vh] left-1/2 -translate-x-1/2 flex md:hidden gap-2">
           {filteredProjects.map((_, i) => (
             <div
               key={i}
