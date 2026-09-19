@@ -218,11 +218,11 @@ export default function AboutPage() {
             </div>
             <div className="w-full md:w-3/4 flex flex-col border-t border-[#4a3b32]/20">
               {[
-                { year: '2026', name: 'AI Upskilling', desc: 'Qualcomm Certificate', link: 'https://drive.google.com/file/d/1-Ma8vM7-BCN0YaIgrjMTj8z_h9m-kOt6/view?usp=sharing' },
-                { year: '2025', name: 'OCI Gen AI Pro', desc: 'Oracle Certified Professional', link: 'https://drive.google.com/file/d/1xN2aDOBPup4hOGfb5IJzHY5r9C5rfS_u/view?usp=sharing' },
-                { year: '2025', name: 'OCI AI Foundations', desc: 'Oracle Certified Associate', link: 'https://drive.google.com/file/d/1vt5LKKsPeEFvOOrmbXLg7Nr7CU2sEnVw/view?usp=sharing' },
-                { year: '2023', name: 'Hackathon Winner', desc: 'Best Backend Architecture' },
-                { year: '2022', name: 'Open Source', desc: 'Top Contributor Award' }
+                { year: '2026', name: 'AI Upskilling', mobileName: 'AI Upskilling', desc: 'Qualcomm Certificate', mobileDesc: 'Qualcomm', link: 'https://drive.google.com/file/d/1-Ma8vM7-BCN0YaIgrjMTj8z_h9m-kOt6/view?usp=sharing' },
+                { year: '2025', name: 'OCI Gen AI Pro', mobileName: 'OCI Gen AI', desc: 'Oracle Certified Professional', mobileDesc: 'Oracle Pro', link: 'https://drive.google.com/file/d/1xN2aDOBPup4hOGfb5IJzHY5r9C5rfS_u/view?usp=sharing' },
+                { year: '2025', name: 'OCI AI Foundations', mobileName: 'OCI AI Found.', desc: 'Oracle Certified Associate', mobileDesc: 'Oracle Assoc.', link: 'https://drive.google.com/file/d/1vt5LKKsPeEFvOOrmbXLg7Nr7CU2sEnVw/view?usp=sharing' },
+                { year: '2023', name: 'Hackathon Winner', mobileName: 'Hackathon', desc: 'Best Backend Architecture', mobileDesc: 'Best Backend' },
+                { year: '2022', name: 'Open Source', mobileName: 'Open Source', desc: 'Top Contributor Award', mobileDesc: 'Top Contributor' }
               ].map((award, i) => (
                 <motion.a
                   href={award.link}
@@ -233,15 +233,17 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-10%" }}
                   transition={{ delay: i * 0.15, duration: 0.6, ease: "easeOut" }}
-                  className="py-8 border-b border-[#4a3b32]/20 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer"
+                  className="py-6 md:py-8 border-b border-[#4a3b32]/20 flex items-center justify-between group cursor-pointer"
                 >
-                  <div className="flex items-center gap-2 md:gap-4 text-2xl md:text-5xl text-[#4a3b32]">
+                  <div className="flex items-center gap-2 md:gap-4 text-xl md:text-5xl text-[#4a3b32]">
                     <span className="font-light">{award.year}</span>
                     <span className="text-[#c25e30] opacity-50 group-hover:opacity-100 transition-opacity">•</span>
-                    <span className="font-medium tracking-tight truncate">{award.name}</span>
+                    <span className="font-medium tracking-tight md:hidden">{award.mobileName}</span>
+                    <span className="font-medium tracking-tight hidden md:inline">{award.name}</span>
                   </div>
-                  <div className="mt-4 md:mt-0 text-xs md:text-sm text-[#7a6b62] uppercase tracking-widest md:text-right group-hover:text-[#c25e30] transition-colors">
-                    {award.desc}
+                  <div className="text-[10px] md:text-sm text-[#7a6b62] uppercase tracking-widest text-right group-hover:text-[#c25e30] transition-colors ml-2 shrink-0">
+                    <span className="md:hidden">{award.mobileDesc}</span>
+                    <span className="hidden md:inline">{award.desc}</span>
                   </div>
                 </motion.a>
               ))}
