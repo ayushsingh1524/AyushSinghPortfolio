@@ -235,7 +235,7 @@ export default function AboutPage() {
                   transition={{ delay: i * 0.15, duration: 0.6, ease: "easeOut" }}
                   className="py-8 border-b border-[#4a3b32]/20 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer"
                 >
-                  <div className="flex items-center gap-4 text-3xl md:text-5xl text-[#4a3b32]">
+                  <div className="flex items-center gap-2 md:gap-4 text-2xl md:text-5xl text-[#4a3b32]">
                     <span className="font-light">{award.year}</span>
                     <span className="text-[#c25e30] opacity-50 group-hover:opacity-100 transition-opacity">•</span>
                     <span className="font-medium tracking-tight truncate">{award.name}</span>
@@ -253,12 +253,12 @@ export default function AboutPage() {
       </motion.section>
 
       {/* ── LET'S WORK TOGETHER SECTION (Curtain Reveal) ── */}
-      <div style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }} className="relative h-[80vh] md:h-[100vh] w-full">
-        <div className="fixed bottom-0 h-[80vh] md:h-[100vh] w-full z-0">
+      <div style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }} className="relative h-[100vh] w-full">
+        <div className="fixed bottom-0 h-[100vh] w-full z-0">
           <section className="w-full h-full bg-[#f5efe6] flex flex-col items-center justify-center pt-20 pb-12 px-4 relative z-10">
 
             {/* ROW 1: LET'S [IMG] WORK */}
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 w-full">
+            <div className="flex flex-row items-center justify-center gap-3 md:gap-8 w-full">
               <h2 className="text-[clamp(4rem,12vw,10rem)] font-black uppercase tracking-tighter text-[#4a3b32] leading-none">
                 LET'S
               </h2>
@@ -268,7 +268,7 @@ export default function AboutPage() {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
-                className="w-[30vw] h-[30vw] md:w-[15vw] md:h-[15vw] rounded-full overflow-hidden border-4 border-[#fffdfa] shadow-xl relative shrink-0"
+                className="w-[20vw] h-[20vw] md:w-[15vw] md:h-[15vw] rounded-full overflow-hidden border-2 md:border-4 border-[#fffdfa] shadow-xl relative shrink-0"
               >
                 <Image
                   src="/portrait.jpeg"
@@ -289,10 +289,10 @@ export default function AboutPage() {
                 Let's build something extraordinary. I'm always open to discussing new projects and system architectures.
               </p>
 
-              <div className="flex flex-col md:flex-row items-center justify-center gap-10 mt-8 w-full">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 mt-8 w-full">
                 <motion.a
                   href="mailto:singhayush9179@gmail.com"
-                  className="relative group flex items-center justify-center font-bold tracking-[0.2em] uppercase text-xs md:text-sm text-[#4a3b32] py-2"
+                  className="relative group flex items-center justify-center font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-sm text-[#4a3b32] py-2"
                   whileHover="hover"
                 >
                   <motion.span
@@ -331,7 +331,7 @@ export default function AboutPage() {
                   href="https://linkedin.com/in/ayush1015"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative group flex items-center justify-center font-bold tracking-[0.2em] uppercase text-xs md:text-sm text-[#4a3b32] py-2"
+                  className="relative group flex items-center justify-center font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-sm text-[#4a3b32] py-2"
                   whileHover="hover"
                 >
                   <motion.span
@@ -368,7 +368,7 @@ export default function AboutPage() {
 
                 <motion.a
                   href="tel:+919453620790"
-                  className="relative group flex items-center justify-center font-bold tracking-[0.2em] uppercase text-xs md:text-sm text-[#4a3b32] py-2"
+                  className="relative group flex items-center justify-center font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase text-[10px] md:text-sm text-[#4a3b32] py-2"
                   whileHover="hover"
                 >
                   <motion.span
@@ -452,7 +452,7 @@ export default function AboutPage() {
             </div>
 
             {/* Footer */}
-            <div className="mt-32 w-full max-w-7xl mx-auto border-t border-[#4a3b32]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="mt-16 md:mt-32 w-full max-w-7xl mx-auto border-t border-[#4a3b32]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8">
               <div className="text-sm font-bold tracking-widest uppercase text-[#c25e30]">
                 Ayush Singh
               </div>
